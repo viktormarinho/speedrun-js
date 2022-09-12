@@ -14,6 +14,12 @@ export class Tester {
         this.tests = [];
     }
 
+    /**
+     * 
+     * @param {*} object1 
+     * @param {*} object2 
+     * @returns 
+     */
     compareObj(object1, object2) {
         const tmp = {...object1, ...object2}
         return JSON.stringify(object2) === JSON.stringify(tmp)

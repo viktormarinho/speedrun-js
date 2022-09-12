@@ -18,11 +18,22 @@ tester.testTrue("Default options should be set", () => {
     return tester.compareObj(testServer.options, defaultOptions)
 });
 
-tester.testTrue("Options passed override default options", () => {
+tester.testTrue("Options passed should override default options", () => {
     const options = { port: 8000 }
     const testServer = provideServer(options);
 
     return testServer.options.port == options.port
+})
+
+tester.testTrue("Adding same endpoint 2 times should fail", () => {
+    const testServer = provideServer();
+    try {
+        testServer.get("/hello", () => {})
+        testServer.get("/hello", () => {})
+        return false
+    } catch (e) {
+        return true
+    }
 })
 
 tester.run();

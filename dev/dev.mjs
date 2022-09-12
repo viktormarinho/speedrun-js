@@ -1,7 +1,7 @@
-import fs from "fs"
-import { spawn } from "child_process"
+import fs from "fs";
+import { spawn } from "child_process";
 
-let childProccess = spawn('node', ['src/index.mjs'])
+let childProccess = spawn('node', ['src/index.mjs']);
 let refreshCount = 0;
 let refreshTimeout;
 

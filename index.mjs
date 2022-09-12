@@ -11,6 +11,10 @@ class SemnetServer extends HttpMethods {
         }
     }
 
+    /**
+     * 
+     * @param {*} options 
+     */
     constructor(options) {
         super();
         this.server = http.createServer((req, res) => this.handleRequest(req, res))

@@ -10,6 +10,7 @@ export class Request {
     constructor(handlerFunction, method) {
         this.handlerFunction = handlerFunction
         this.method = method
+        this.middlewares = []
     }
 
     /**
@@ -17,7 +18,7 @@ export class Request {
      * @param {http.IncomingMessage} req 
      * @returns 
      */
-    checkMiddleware(req) {
+    requestMethodMiddleware(req) {
         return req.method == this.method
     }
 
@@ -64,7 +65,7 @@ export class Request {
      * @returns 
      */
     async handleRequest(req, res) {
-        if (!this.checkMiddleware(req)) return this.earlyReject(req, res);
+        if (!this.requestMethodMiddleware(req)) return this.earlyReject(req, res);
         let any_err;
 
         let params = this.extractParams(req)

@@ -1,6 +1,11 @@
 import { Request } from "./request.mjs"
 
 export class HttpMethods {
+    /**
+     * 
+     * @param {string} path 
+     * @param {Function} handlerFunction 
+     */
     get(path, handlerFunction) {
         this.endpoints.push(
             {
@@ -10,6 +15,11 @@ export class HttpMethods {
         )
     }
 
+    /**
+     * 
+     * @param {string} path 
+     * @param {Function} handlerFunction 
+     */
     post(path, handlerFunction) {
         this.endpoints.push(
             {
@@ -19,6 +29,11 @@ export class HttpMethods {
         )
     }
 
+    /**
+     * 
+     * @param {string} path 
+     * @param {Function} handlerFunction 
+     */
     put(path, handlerFunction) {
         this.endpoints.push(
             {
@@ -28,6 +43,11 @@ export class HttpMethods {
         )
     }
 
+    /**
+     * 
+     * @param {string} path 
+     * @param {Function} handlerFunction 
+     */
     delete(path, handlerFunction) {
         this.endpoints.push(
             {
