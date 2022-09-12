@@ -7,10 +7,10 @@ export class Request {
      * @param {Function} handlerFunction 
      * @param {string} method 
      */
-    constructor(handlerFunction, method) {
-        this.handlerFunction = handlerFunction
-        this.method = method
-        this.middlewares = []
+    constructor(handlerFunction, method, middlewares) {
+        this.handlerFunction = handlerFunction;
+        this.method = method;
+        this.middlewares = middlewares;
     }
 
     /**
@@ -27,7 +27,7 @@ export class Request {
      * @param {http.IncomingMessage} req 
      * @param {http.ServerResponse} res 
      */
-    earlyReject(req, res) {
+    rejectWrongMethod(req, res) {
         responseWithError(res, `Wrong method; Trying to access ${this.method} route with ${req.method} method.`, 405)
     }
 
@@ -61,14 +61,33 @@ export class Request {
     /**
      * 
      * @param {http.IncomingMessage} req 
+     */
+    validateMiddlewares(req) {
+        for (let mw of this.middlewares) {
+            if (!mw.validate(req)) return { ok: false, rejectFunction: mw.rejectFunction }
+        }
+        return { ok: true }
+    }
+
+    /**
+     * 
+     * @param {http.IncomingMessage} req 
      * @param {http.ServerResponse} res 
      * @returns 
      */
     async handleRequest(req, res) {
-        if (!this.requestMethodMiddleware(req)) return this.earlyReject(req, res);
-        let any_err;
+        if (!this.requestMethodMiddleware(req)) return this.rejectWrongMethod(req, res);
+        
+        const {ok, rejectFunction} = this.validateMiddlewares(req);
+
+        if (!ok) {
+            return rejectFunction(req, res)
+        }
 
         let params = this.extractParams(req)
+        
+        let any_err;
+
         await this.extractBody(req)
             .then(body => {
                 res.end(JSON.stringify(this.handlerFunction(params, body)))

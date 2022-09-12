@@ -10,7 +10,7 @@ export class HttpMethods {
         this.endpoints.push(
             {
                 url: path,
-                request: new Request(handlerFunction, 'GET')
+                request: new Request(handlerFunction, 'GET', this.middlewares)
             }
         )
     }
@@ -24,7 +24,7 @@ export class HttpMethods {
         this.endpoints.push(
             {
                 url: path,
-                request: new Request(handlerFunction, 'POST')
+                request: new Request(handlerFunction, 'POST', this.middlewares)
             }
         )
     }
@@ -38,7 +38,7 @@ export class HttpMethods {
         this.endpoints.push(
             {
                 url: path,
-                request: new Request(handlerFunction, 'PUT')
+                request: new Request(handlerFunction, 'PUT', this.middlewares)
             }
         )
     }
@@ -52,7 +52,7 @@ export class HttpMethods {
         this.endpoints.push(
             {
                 url: path,
-                request: new Request(handlerFunction, 'DELETE')
+                request: new Request(handlerFunction, 'DELETE', this.middlewares)
             }
         )
     }
