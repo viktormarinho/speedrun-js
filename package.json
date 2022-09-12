@@ -1,13 +1,14 @@
 {
-  "name": "sem_net",
-  "version": "1.0.0",
+  "name": "speedrunjs",
+  "version": "0.0.1",
   "type": "module",
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node dev/dev.mjs",
+    "test": "node test/index.test.mjs"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Viktor Marinho",
+  "license": "MIT"
 }
