@@ -64,7 +64,7 @@ export class Request {
      */
     validateMiddlewares(req) {
         for (let mw of this.middlewares) {
-            if (!mw.validate(req)) return { ok: false, rejectFunction: mw.rejectFunction }
+            if (!mw.validate(req)) return { ok: false, middleware: mw }
         }
         return { ok: true }
     }
@@ -78,10 +78,10 @@ export class Request {
     async handleRequest(req, res) {
         if (!this.requestMethodMiddleware(req)) return this.rejectWrongMethod(req, res);
         
-        const {ok, rejectFunction} = this.validateMiddlewares(req);
+        const {ok, middleware} = this.validateMiddlewares(req);
 
         if (!ok) {
-            return rejectFunction(req, res)
+            return middleware.rejectFunction(req, res)
         }
 
         let params = this.extractParams(req)

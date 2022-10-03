@@ -12,7 +12,7 @@ export class Middleware {
      * @param {http.IncomingMessage} req 
      * @param {http.ServerResponse} res 
      */
-    rejectFunc(req, res) {
+    rejectFunction(req, res) {
         responseWithError(res, this.config.rejectMsg, this.config.rejectCode);
     }
 }

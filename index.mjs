@@ -119,7 +119,9 @@ class SemnetServer extends HttpMethods {
      * @param {SemnetServer} server 
      */
     bind(server) {
-        this.endpoints = [...this.endpoints, ...server.endpoints]
+        server.endpoints.forEach((endp) => {
+            this.createEndpoint({...endp})
+        })
     }
 
 }
