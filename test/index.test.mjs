@@ -25,7 +25,7 @@ tester.testTrue("Options passed should override default options", () => {
     return testServer.options.port == options.port
 })
 
-tester.testTrue("Adding same endpoint 2 times should fail", () => {
+tester.testTrue("Adding same endpoint 2 times w/ same method should throw an error", () => {
     const testServer = provideServer();
     try {
         testServer.get("/hello", () => {})
@@ -33,6 +33,18 @@ tester.testTrue("Adding same endpoint 2 times should fail", () => {
         return false
     } catch (e) {
         return true
+    }
+})
+
+tester.testTrue("Adding same endpoint 2 times w/ different methods should work", () => {
+    const testServer = provideServer();
+    try {
+        testServer.get("/hello", () => {})
+        testServer.post("/hello", () => {})
+
+        return true
+    } catch (e) {
+        return false
     }
 })
 
