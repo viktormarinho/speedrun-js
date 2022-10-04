@@ -58,7 +58,7 @@ class SemnetServer extends HttpMethods {
         }
 
         this.endpoints.forEach(endpoint => {
-            if (endpoint.url == url.pathname) {
+            if (endpoint.url == url.pathname && endpoint.request.method == req.method) {
                 endpoint.request.handleRequest(req, res)
             }
         })
